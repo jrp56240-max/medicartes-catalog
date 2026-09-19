@@ -1,0 +1,40 @@
+name: Mise à jour mensuelle du catalogue
+
+on:
+  schedule:
+    - cron: "0 4 10 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-catalog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Construire le catalogue BDPM
+        run: python import_bdpm.py
+
+      - name: Enregistrer la nouvelle base
+        run: |
+          git config user.name "MediCartes Bot"
+          git config user.email "actions@github.com"
+          git add assets/database/medicartes_catalog.db
+          git add assets/database/catalog_manifest.json
+
+          if git diff --cached --quiet; then
+            echo "Aucune modification à enregistrer."
+          else
+            git commit -m "Mise à jour mensuelle du catalogue"
+            git push
+          fi
