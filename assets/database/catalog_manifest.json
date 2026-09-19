@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "catalog_version": "2026-09",
+  "generated_at": "2026-09-19T11:58:29+00:00",
+  "database_file": "medicartes_catalog.db",
+  "database_size": 10231808,
+  "sha256": "a0f0092f7839e52cef12bb1b81a1ac230c6861343c63052c4f3f82a185f1a915",
+  "counts": {
+    "specialties": 15859,
+    "presentations": 0,
+    "compositions": 32400
+  }
+}
